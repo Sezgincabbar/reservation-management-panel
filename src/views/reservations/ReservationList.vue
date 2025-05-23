@@ -277,7 +277,7 @@ onMounted(async () => {
       </v-card>
 
       <v-card class="mb-4 pa-4">
-         <div class="d-flex gap-8 align-start flex-wrap px-4 ga-2">
+         <div class="filter-row d-flex gap-8 align-start flex-wrap px-4 ga-2">
             <v-text-field
                v-model="filters.guestName"
                :placeholder="t('reservations.guestName', 'Guest name')"
@@ -286,9 +286,8 @@ onMounted(async () => {
                hide-details
                clearable
                prepend-inner-icon="mdi-magnify"
-               class="flex-grow-1"
+               class="flex-grow-1 filter-item"
             ></v-text-field>
-
             <v-select
                v-if="isAdmin"
                v-model="filters.hotelId"
@@ -300,10 +299,9 @@ onMounted(async () => {
                density="comfortable"
                hide-details
                clearable
-               class="flex-grow-1"
+               class="flex-grow-1 filter-item"
                :return-object="false"
             ></v-select>
-
             <v-select
                v-model="filters.status"
                :items="statuses"
@@ -314,11 +312,12 @@ onMounted(async () => {
                density="comfortable"
                hide-details
                clearable
-               class="flex-grow-1"
+               class="flex-grow-1 filter-item"
                :return-object="false"
             ></v-select>
-
-            <v-btn color="error" prepend-icon="mdi-close" size="large" variant="tonal" @click="resetFilters"> {{ t('app.clear', 'Temizle') }} </v-btn>
+            <v-btn color="error" prepend-icon="mdi-close" size="large" variant="tonal" @click="resetFilters" class="filter-item">
+               {{ t('app.clear', 'Temizle') }}
+            </v-btn>
          </div>
       </v-card>
 
@@ -476,5 +475,23 @@ onMounted(async () => {
    display: flex;
    flex-direction: column;
    background-color: #f5f5f5;
+}
+.filter-row {
+   flex-wrap: wrap;
+   gap: 16px;
+}
+.filter-item {
+   min-width: 180px;
+}
+@media (max-width: 800px) {
+   .filter-row {
+      flex-direction: column !important;
+      gap: 8px !important;
+      padding: 0 !important;
+   }
+   .filter-item {
+      min-width: 100% !important;
+      width: 100% !important;
+   }
 }
 </style>

@@ -70,43 +70,77 @@ if (typeof window !== 'undefined') {
 
 <template>
    <v-app>
-      <v-app-bar color="primary">
-         <v-app-bar-title>{{ t('app.title') }}</v-app-bar-title>
-         <v-spacer></v-spacer>
+      <v-app-bar color="primary" dense flat app>
+         <v-app-bar-title class="d-none d-sm-flex">{{ t('app.title') }}</v-app-bar-title>
+         <v-app-bar-title class="d-flex d-sm-none text-center w-100">{{ t('app.title') }}</v-app-bar-title>
+         <v-spacer class="d-none d-sm-flex"></v-spacer>
 
-         <!-- Giriş yapmış kullanıcılar için menü -->
+         <v-menu class="d-flex" offset-y left v-if="$vuetify.display.xs">
+            <template v-slot:activator="{ props }">
+               <v-btn icon v-bind="props">
+                  <v-icon>mdi-menu</v-icon>
+               </v-btn>
+            </template>
+            <v-list>
+               <v-list-item v-if="isAuthenticated" to="/">
+                  <v-list-item-title>{{ t('menu.home') }}</v-list-item-title>
+               </v-list-item>
+               <v-list-item v-if="isAuthenticated" to="/reservations">
+                  <v-list-item-title>{{ t('menu.reservations') }}</v-list-item-title>
+               </v-list-item>
+               <v-list-item v-if="isAdmin && isAuthenticated" to="/hotels">
+                  <v-list-item-title>{{ t('menu.hotels') }}</v-list-item-title>
+               </v-list-item>
+               <v-list-item>
+                  <v-list-item-title>
+                     <v-menu>
+                        <template v-slot:activator="{ props }">
+                           <v-btn v-bind="props" variant="text">
+                              {{ locale === 'tr' ? t('language.tr') : t('language.en') }}
+                              <v-icon right>mdi-translate</v-icon>
+                           </v-btn>
+                        </template>
+                        <v-list>
+                           <v-list-item v-for="lang in locales" :key="lang.code" @click="changeLocale(lang.code)" :active="locale === lang.code">
+                              <v-list-item-title>{{ lang.name }}</v-list-item-title>
+                           </v-list-item>
+                        </v-list>
+                     </v-menu>
+                  </v-list-item-title>
+               </v-list-item>
+               <v-list-item v-if="isAuthenticated" @click="logout">
+                  <v-list-item-title>
+                     <v-icon left>mdi-logout</v-icon>
+                     {{ t('menu.logout') }}
+                  </v-list-item-title>
+               </v-list-item>
+            </v-list>
+         </v-menu>
+
          <template v-if="isAuthenticated">
-            <v-btn to="/" variant="text">{{ t('menu.home') }}</v-btn>
-            <v-btn to="/reservations" variant="text">{{ t('menu.reservations') }}</v-btn>
-
-            <!-- Admin için tüm otelleri göster -->
-            <v-btn v-if="isAdmin" to="/hotels" variant="text">{{ t('menu.hotels') }}</v-btn>
-
-            <!-- Dil seçimi -->
-            <v-menu>
+            <v-btn to="/" variant="text" class="d-none d-sm-flex">{{ t('menu.home') }}</v-btn>
+            <v-btn to="/reservations" variant="text" class="d-none d-sm-flex">{{ t('menu.reservations') }}</v-btn>
+            <v-btn v-if="isAdmin" to="/hotels" variant="text" class="d-none d-sm-flex">{{ t('menu.hotels') }}</v-btn>
+            <v-menu class="d-none d-sm-flex">
                <template v-slot:activator="{ props }">
                   <v-btn v-bind="props" variant="text">
                      {{ locale === 'tr' ? t('language.tr') : t('language.en') }}
                      <v-icon right>mdi-translate</v-icon>
                   </v-btn>
                </template>
-
                <v-list>
                   <v-list-item v-for="lang in locales" :key="lang.code" @click="changeLocale(lang.code)" :active="locale === lang.code">
                      <v-list-item-title>{{ lang.name }}</v-list-item-title>
                   </v-list-item>
                </v-list>
             </v-menu>
-
-            <!-- Kullanıcı menüsü -->
-            <v-menu>
+            <v-menu class="d-none d-sm-flex">
                <template v-slot:activator="{ props }">
                   <v-btn v-bind="props" variant="text">
                      {{ currentUser?.name }}
                      <v-icon right>mdi-chevron-down</v-icon>
                   </v-btn>
                </template>
-
                <v-list>
                   <v-list-item>
                      <v-list-item-title>
@@ -116,9 +150,7 @@ if (typeof window !== 'undefined') {
                         {{ currentUser?.name }}
                      </v-list-item-title>
                   </v-list-item>
-
                   <v-divider></v-divider>
-
                   <v-list-item @click="logout">
                      <v-list-item-title>
                         <v-icon left>mdi-logout</v-icon>
@@ -128,8 +160,6 @@ if (typeof window !== 'undefined') {
                </v-list>
             </v-menu>
          </template>
-
-         <!-- Giriş yapmamış kullanıcılar için dil seçimi -->
          <template v-else>
             <v-menu>
                <template v-slot:activator="{ props }">
@@ -138,7 +168,6 @@ if (typeof window !== 'undefined') {
                      <v-icon right>mdi-translate</v-icon>
                   </v-btn>
                </template>
-
                <v-list>
                   <v-list-item v-for="lang in locales" :key="lang.code" @click="changeLocale(lang.code)" :active="locale === lang.code">
                      <v-list-item-title>{{ lang.name }}</v-list-item-title>
@@ -166,5 +195,18 @@ html,
 body {
    margin: 0;
    padding: 0;
+}
+
+@media (max-width: 600px) {
+   .v-app-bar-title {
+      font-size: 1.1rem !important;
+      padding: 0 8px;
+   }
+   .v-app-bar .v-btn:not(.v-btn--icon) {
+      display: none !important;
+   }
+   .v-app-bar .v-menu:not(.d-flex) {
+      display: none !important;
+   }
 }
 </style>
