@@ -1,5 +1,10 @@
 # Vue 3 + TypeScript + Vite
 
+## Proje Linkleri
+
+-  **Canlı Demo:** [https://reservation-management-panel.vercel.app/](https://reservation-management-panel.vercel.app/)
+-  **GitHub:** [https://github.com/Sezgincabbar/reservation-management-panel.git](https://github.com/Sezgincabbar/reservation-management-panel.git)
+
 Bu proje, Vue 3, TypeScript ve Vite kullanılarak oluşturulmuştur. Projeyi kendi bilgisayarınızda çalıştırmak için aşağıdaki adımları takip edebilirsiniz.
 
 ## Kurulum
@@ -7,8 +12,8 @@ Bu proje, Vue 3, TypeScript ve Vite kullanılarak oluşturulmuştur. Projeyi ken
 1. **Depoyu klonlayın:**
 
    ```bash
-   git clone <proje-repo-linki>
-   cd <proje-klasörü>
+   git clone https://github.com/Sezgincabbar/reservation-management-panel.git
+   cd reservation-management-panel
    ```
 
 2. **Bağımlılıkları yükleyin:**
