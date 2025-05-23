@@ -1,0 +1,113 @@
+/* Global styles */
+:root {
+   --primary-color: #1976d2;
+   --secondary-color: #424242;
+   --success-color: #4caf50;
+   --warning-color: #ff9800;
+   --error-color: #f44336;
+   --background-color: #f5f5f5;
+   --card-background: #ffffff;
+   --text-color: #212121;
+   --text-secondary: #757575;
+   --border-color: #e0e0e0;
+   --border-radius: 8px;
+   --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+   --transition: all 0.3s ease;
+}
+
+/* Base styles */
+html,
+body {
+   margin: 0;
+   padding: 0;
+   font-family: 'Roboto', sans-serif;
+   background-color: var(--background-color);
+   color: var(--text-color);
+}
+
+/* Card styling */
+.v-card {
+   border-radius: var(--border-radius) !important;
+   box-shadow: var(--shadow) !important;
+   transition: var(--transition);
+}
+
+.v-card:hover {
+   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.v-card-title {
+   font-weight: 500 !important;
+}
+
+/* Button styling */
+.v-btn {
+   font-weight: 500 !important;
+   text-transform: none !important;
+   letter-spacing: 0.5px !important;
+   transition: var(--transition);
+}
+
+/* Form styling */
+.v-text-field,
+.v-select {
+   margin-bottom: 8px !important;
+}
+
+/* Table styling */
+.v-table {
+   border-radius: var(--border-radius) !important;
+   overflow: hidden !important;
+}
+
+.v-table th {
+   background-color: #f5f5f5 !important;
+   color: var(--text-color) !important;
+   font-weight: 500 !important;
+   text-transform: none !important;
+}
+
+/* Toast customization */
+.Vue-Toastification__toast {
+   border-radius: var(--border-radius) !important;
+   box-shadow: var(--shadow) !important;
+}
+
+.Vue-Toastification__toast--success {
+   background-color: var(--success-color) !important;
+}
+
+.Vue-Toastification__toast--error {
+   background-color: var(--error-color) !important;
+}
+
+.Vue-Toastification__toast--warning {
+   background-color: var(--warning-color) !important;
+}
+
+.Vue-Toastification__toast--info {
+   background-color: var(--primary-color) !important;
+}
+
+/* Loading styles */
+.v-progress-circular {
+   margin: 1rem;
+}
+
+/* Animation for page transitions */
+.fade-enter-active,
+.fade-leave-active {
+   transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+   opacity: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+   .v-container {
+      padding: 12px !important;
+   }
+}
